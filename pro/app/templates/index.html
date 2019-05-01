@@ -1,0 +1,48 @@
+<body>   
+    
+    <button onclick = "googleSignin()">Google Signin</button>
+    <button onclick = "googleSignout()">Google Signout</button>
+    
+    
+    <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
+    <script>
+        var config = {
+            apiKey: "AIzaSyAqD6lZJMhsX6EmFH6ZK073In6sezVQYLg",
+            authDomain: "testproject1-efc92.firebaseapp.com",
+            databaseURL: "https://testproject1-efc92.firebaseio.com",
+            projectId: "testproject1-efc92",
+            storageBucket: "testproject1-efc92.appspot.com",
+            messagingSenderId: "345683337280"
+        };
+        firebase.initializeApp(config);
+    </script>
+    
+    <script>
+        var provider = new firebase.auth.GoogleAuthProvider();
+
+        function googleSignin() {
+           firebase.auth().signInWithPopup(provider).then(function(result) {
+              var token = result.credential.accessToken;
+              var user = result.user;
+
+              console.log(token)
+              console.log(user)
+           }).catch(function(error) {
+              var errorCode = error.code;
+              var errorMessage = error.message;
+
+              console.log(error.code)
+              console.log(error.message)
+           });
+        }
+
+        function googleSignout() {
+           firebase.auth().signOut().then(function() {
+              console.log('Signout Succesfull')
+           }, function(error) {
+              console.log('Signout Failed')  
+           });
+        }
+    
+    </script>
+</body>
